@@ -1,0 +1,8 @@
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de banco de dados
+*.sql
+
+# Ignorar diretórios de backup
+backup/
