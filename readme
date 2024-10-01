@@ -1,0 +1,45 @@
+# Inventário de Armazém
+
+Este projeto é um sistema simples de gerenciamento de inventário para armazenar informações sobre produtos, categorias e fornecedores. Ele foi desenvolvido utilizando MySQL para a criação do banco de dados e das tabelas necessárias.
+
+## Estrutura do Banco de Dados
+
+O banco de dados `inventarioarmazem` contém três tabelas:
+
+- **categoria**: Armazena informações sobre as categorias de produtos.
+- **fornecedores**: Armazena informações sobre os fornecedores.
+- **produtos**: Armazena informações sobre os produtos disponíveis em estoque.
+
+## Tabelas
+
+### categoria
+- `idcategoria`: Chave primária, identificador único da categoria.
+- `nome`: Nome da categoria.
+
+### fornecedores
+- `idfornecedor`: Chave primária, identificador único do fornecedor.
+- `nome`: Nome do fornecedor.
+- `contato`: Informações de contato do fornecedor.
+- `endereco`: Endereço do fornecedor.
+
+### produtos
+- `idproduto`: Chave primária, identificador único do produto.
+- `nome`: Nome do produto.
+- `descricao`: Descrição do produto.
+- `preco`: Preço do produto.
+- `quantidadeestoque`: Quantidade disponível em estoque.
+- `idcategoria`: Chave estrangeira referenciando `idcategoria` na tabela `categoria`.
+
+## Como Usar
+
+1. **Configuração do Banco de Dados**: 
+   - Execute os comandos SQL fornecidos para criar o banco de dados e as tabelas.
+   - Insira dados fictícios nas tabelas utilizando os comandos de inserção.
+
+2. **Consultas**: 
+   - Utilize as consultas SQL fornecidas para interagir com os dados.
+   - Você pode atualizar e excluir registros conforme necessário.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
