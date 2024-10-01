@@ -1,0 +1,91 @@
+-- 1. Criação do banco de dados
+SET SQL_SAFE_UPDATES = 0;
+CREATE DATABASE IF NOT EXISTS inventarioarmazem;
+USE inventarioarmazem;
+
+-- 2. Criação da tabela categoria
+CREATE TABLE IF NOT EXISTS categoria (
+    idcategoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+-- 3. Criação da tabela fornecedores
+CREATE TABLE IF NOT EXISTS fornecedores (
+    idfornecedor INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    contato VARCHAR(100),
+    endereco TEXT
+);
+
+-- 4. Criação da tabela produtos
+CREATE TABLE IF NOT EXISTS produtos (
+    idproduto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10, 2) NOT NULL,
+    quantidadeestoque INT NOT NULL,
+    idcategoria INT NOT NULL,
+    FOREIGN KEY (idcategoria) REFERENCES categoria(idcategoria)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- 5. Inserção de dados fictícios na tabela categoria
+INSERT INTO categoria (nome) VALUES
+('Eletrônicos'),
+('Móveis'),
+('Roupas'),
+('Alimentos');
+
+-- 6. Inserção de dados fictícios na tabela fornecedores
+INSERT INTO fornecedores (nome, contato, endereco) VALUES
+('Fornecedor A', 'a@fornecedores.com', 'Rua 123, Cidade A'),
+('Fornecedor B', 'b@fornecedores.com', 'Rua 456, Cidade B'),
+('Fornecedor C', 'c@fornecedores.com', 'Rua 789, Cidade C');
+
+-- 7. Inserção de dados fictícios na tabela produtos
+INSERT INTO produtos (nome, descricao, preco, quantidadeestoque, idcategoria) VALUES
+('Televisão', 'Televisão 40 polegadas', 1500.00, 10, 1),
+('Sofá', 'Sofá 3 lugares', 800.00, 5, 2),
+('Camiseta', 'Camiseta 100% algodão', 35.00, 50, 3),
+('Arroz', 'Arroz tipo 1, 5kg', 25.00, 100, 4);
+
+-- 8. Consultas SQL
+
+-- a. Consulta de todos os produtos e suas categorias
+SELECT produtos.nome AS Produto, categoria.nome AS Categoria
+FROM produtos
+INNER JOIN categoria ON produtos.idcategoria = categoria.idcategoria;
+
+-- b. Consulta de fornecedores e seus contatos
+SELECT nome, contato FROM fornecedores;
+
+-- c. Consulta de produtos com estoque abaixo de 20 unidades
+SELECT nome, quantidadeestoque FROM produtos
+WHERE quantidadeestoque < 20;
+
+-- d. Consulta de produtos ordenados por preço (do mais caro ao mais barato)
+SELECT nome, preco FROM produtos
+ORDER BY preco DESC;
+
+-- 9. Atualização de dados
+
+-- a. Atualizar o preço de um produto
+UPDATE produtos
+SET preco = 1600.00
+WHERE idproduto = 1;  -- Mudança para usar a chave primária
+
+-- b. Atualizar o contato de um fornecedor
+UPDATE fornecedores
+SET contato = 'novoemail@fornecedores.com'
+WHERE idfornecedor = 1;  -- Mudança para usar a chave primária
+
+-- 10. Exclusão de dados
+
+-- a. Excluir um produto do banco de dados
+DELETE FROM produtos
+WHERE nome = 'Sofá';
+
+-- b. Excluir um fornecedor
+DELETE FROM fornecedores
+WHERE nome = 'Fornecedor C';
